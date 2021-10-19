@@ -12,15 +12,8 @@ namespace historianWriter
         public static Logger logger;
 
         //probeweise loggen
-        private NLog.Config.LoggingConfiguration config = new NLog.Config.LoggingConfiguration();
-        private ElasticSearchTarget logelastic = new ElasticSearchTarget
-        {
-            Name = "elastic",
-            Uri = "http://jhistorian.mei.local:9200/",  //Uri = "http://192.168.2.41:32120", 
-            Index = "historianwriter",  //"app-${level}-${date:format=yyyy.MM.dd}"
-            Layout = "${logger} | ${threadid} | ${message}",
-            IncludeAllProperties = true,
-        };
+        private NLog.Config.LoggingConfiguration config;
+        private ElasticSearchTarget logelastic;
 
 
         public LoggingBase()
@@ -34,8 +27,8 @@ namespace historianWriter
 
 
 
-            NLog.Config.LoggingConfiguration config = new NLog.Config.LoggingConfiguration();
-            ElasticSearchTarget logelastic = new ElasticSearchTarget
+            config = new NLog.Config.LoggingConfiguration();
+            logelastic = new ElasticSearchTarget
             {
                 Name = "elastic",
                 Uri = "http://jhistorian.prod.j1:9200/",  //Uri = "http://192.168.2.41:32120", 
@@ -48,7 +41,7 @@ namespace historianWriter
 
             // Apply config
             NLog.LogManager.Configuration = config;
-            Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            logger = NLog.LogManager.GetCurrentClassLogger();
          
 
             logger.Info($"LoggingBase Klasse initialisiert");
