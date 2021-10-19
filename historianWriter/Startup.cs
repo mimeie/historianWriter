@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using NLog;
-using NLog.Targets.ElasticSearch;
+
 
 namespace historianWriter
 {
