@@ -53,7 +53,8 @@ namespace historianWriterTest
             var logger = NLog.LogManager.GetCurrentClassLogger();
 
 
-            var result = Parallel.For(1, 500, (i, state) =>
+            //var result = Parallel.For(1, 500, (i, state) =>
+            for (int i = 0; i < 500; i++)
             {
                 //logger.Info($"Beginning iteration {i}");             
                 //logger.Info($"Completed iteration {i}");
@@ -74,7 +75,9 @@ namespace historianWriterTest
 
                 logger.WithProperty("Wert", rand_num).WithProperty("Datenpunkt", "Datenpunkt1").Info($"es läuft ein value schreibe test");
                 logger.WithProperty("Wert", rand_num2).WithProperty("Datenpunkt", "Datenpunkt2").Info($"es läuft ein value schreibe test");
-            });
+                logger.Info($"für 500ms schlafen");
+                System.Threading.Thread.Sleep(500);
+            }
             }
         }
     }
