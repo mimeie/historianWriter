@@ -7,9 +7,9 @@ using NLog.Targets.ElasticSearch;
 
 namespace historianWriter
 {
-    public class LoggingBase
+    public class LoggingBase : MetricBase
     {
-        public static Logger logger;
+        public static Logger loggerBase;
 
         //probeweise loggen
         private NLog.Config.LoggingConfiguration config;
@@ -32,19 +32,20 @@ namespace historianWriter
             {
                 Name = "elastic",
                 Uri = "http://jhistorian.prod.j1:9200/",  //Uri = "http://192.168.2.41:32120", 
-                Index = "historianwriter",  //"app-${level}-${date:format=yyyy.MM.dd}"
-                Layout = "${logger} | ${threadid} | ${message}",
+                Index = "historianWriter-${level}-${date:format=yyyy-MM-dd}",
+                //Layout = "${logger} | ${threadid} | ${message}",
+                Layout = "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}",
                 IncludeAllProperties = true,
             };
             // Rules for mapping loggers to targets
-            config.AddRule(NLog.LogLevel.Info, NLog.LogLevel.Fatal, logelastic);
+            config.AddRule(NLog.LogLevel.Debug, NLog.LogLevel.Fatal, logelastic);
 
             // Apply config
             NLog.LogManager.Configuration = config;
-            logger = NLog.LogManager.GetCurrentClassLogger();
-         
+            loggerBase = NLog.LogManager.GetCurrentClassLogger();
 
-            logger.Info($"LoggingBase Klasse initialisiert");
+
+            loggerBase.Info($"LoggingBase Klasse initialisiert");
         }
         
         

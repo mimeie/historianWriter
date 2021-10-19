@@ -18,8 +18,11 @@ namespace historianWriter
 {
     public class Startup : LoggingBase
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Startup(IConfiguration configuration)
         {
+            stopwatch.Start();
             Configuration = configuration;
         }
 
@@ -56,9 +59,8 @@ namespace historianWriter
             });
 
             
-
-
-            logger.Info($"historianWriter gestartet");
+           
+            logger.WithProperty("Prozess",logger.Name).WithProperty("Prozessdauer", stopwatch.ElapsedMilliseconds).Info($"historianWriter gestartet");
             //logger.WithProperty("LoggingIdxProp", 85).WithProperty("LogginTextProp", "helloProperty").Info($"start parallel mit Ifrit Funktion");
         }
 
