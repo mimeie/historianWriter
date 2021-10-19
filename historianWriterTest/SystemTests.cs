@@ -75,7 +75,7 @@ namespace historianWriterTest
 
                 logger.WithProperty("Wert", rand_num).WithProperty("Datenpunkt", "Datenpunkt1").Info($"es läuft ein value schreibe test");
                 logger.WithProperty("Wert", rand_num2).WithProperty("Datenpunkt", "Datenpunkt2").Info($"es läuft ein value schreibe test");
-                logger.Info($"für 500ms schlafen");
+                //logger.Info($"für 500ms schlafen");
                 System.Threading.Thread.Sleep(500);
             }
             }
