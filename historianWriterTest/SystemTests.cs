@@ -3,6 +3,7 @@ using System;
 
 using NLog;
 using NLog.Targets.ElasticSearch;
+using JusiBase;
 using System.Threading.Tasks;
 
 namespace historianWriterTest
@@ -10,48 +11,34 @@ namespace historianWriterTest
     [TestClass]
     public class SystemTests
     {
-        [TestMethod]
-        public void TestLogger()
+
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        public SystemTests()
         {
-            var config = new NLog.Config.LoggingConfiguration();
-            var logelastic = new ElasticSearchTarget
+            ElasticSearchTarget logelasticlogelastic = new ElasticSearchTarget
             {
                 Name = "elastic",
                 Uri = "http://jhistorian.prod.j1:9200/",  //Uri = "http://192.168.2.41:32120", 
-                Index = "historianwriter-Test",  //"app-${level}-${date:format=yyyy.MM.dd}"
-                Layout = "${logger} | ${threadid} | ${message}",
+                Index = "historianWriter-Test-${level}-${date:format=yyyy-MM-dd}",
+                //Index = "historianWriter-${level}-${date:format=yyyy-MM-dd}",
+                //Layout = "${logger} | ${threadid} | ${message}",
+                Layout = "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}",
                 IncludeAllProperties = true,
             };
-            // Rules for mapping loggers to targets
-            config.AddRule(NLog.LogLevel.Info, NLog.LogLevel.Fatal, logelastic);
+            JusiBase.LoggingBase logging = new LoggingBase(logelasticlogelastic, NLog.LogLevel.Debug, NLog.LogLevel.Fatal);
+        }
 
-            // Apply config
-            NLog.LogManager.Configuration = config;
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-
-
-            logger.Info($"historianWriter unit test getestet");
+        [TestMethod]
+        public void TestLogger()
+        {
+           logger.Info($"historianWriter unit test getestet");
         }
 
         [TestMethod]
         public void TestValueLogger()
         {
-            var config = new NLog.Config.LoggingConfiguration();
-            var logelastic = new ElasticSearchTarget
-            {
-                Name = "elastic",
-                Uri = "http://jhistorian.prod.j1:9200/",  //Uri = "http://192.168.2.41:32120", 
-                Index = "historianwriter-Test",  //"app-${level}-${date:format=yyyy.MM.dd}"
-                Layout = "${logger} | ${threadid} | ${message}",
-                IncludeAllProperties = true,
-            };
-            // Rules for mapping loggers to targets
-            config.AddRule(NLog.LogLevel.Info, NLog.LogLevel.Fatal, logelastic);
-
-            // Apply config
-            NLog.LogManager.Configuration = config;
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-
+          
 
             //var result = Parallel.For(1, 500, (i, state) =>
             for (int i = 0; i < 500; i++)

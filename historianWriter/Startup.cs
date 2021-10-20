@@ -12,17 +12,23 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using NLog;
-
+using NLog.Targets.ElasticSearch;
+using JusiBase;
 
 namespace historianWriter
 {
-    public class Startup : LoggingBase
+    public class Startup
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private MetricBase metric = new MetricBase();
 
         public Startup(IConfiguration configuration)
         {
-            stopwatch.Start();
+            metric.stopwatch.Start();
+
+           
+
+
             Configuration = configuration;
         }
 
@@ -42,6 +48,7 @@ namespace historianWriter
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,7 +67,7 @@ namespace historianWriter
 
             
            
-            logger.WithProperty("Prozess",logger.Name).WithProperty("Prozessdauer", stopwatch.ElapsedMilliseconds).Info($"historianWriter gestartet");
+            logger.WithProperty("Prozess",logger.Name).WithProperty("Prozessdauer", metric.stopwatch.ElapsedMilliseconds).Info($"historianWriter gestartet");
             //logger.WithProperty("LoggingIdxProp", 85).WithProperty("LogginTextProp", "helloProperty").Info($"start parallel mit Ifrit Funktion");
         }
 
