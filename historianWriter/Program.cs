@@ -28,20 +28,19 @@ namespace historianWriter
                 Index = "historianWriter-Test-${level}-${date:format=yyyy-MM-dd}",
                 //Index = "historianWriter-${level}-${date:format=yyyy-MM-dd}",
                 //Layout = "${logger} | ${threadid} | ${message}",
-                Layout = "${longdate}|${event-properties:item=EventId_Id}|${threadid}|${uppercase:${level}}|${logger}|${hostname}|${message} ${exception:format=tostring}",          
-                IncludeAllProperties = true,
+                //Layout = "${longdate}|${event-properties:item=EventId_Id}|${threadid}|${uppercase:${level}}|${logger}|${hostname}|${message} ${exception:format=tostring}",
+                Layout = "${message}",
+            IncludeAllProperties = true,
             };
             
             JusiBase.LoggingBase logging = new LoggingBase(elastictarget, NLog.LogLevel.Debug, NLog.LogLevel.Fatal);
 
-            logger
-                .WithProperty("Prozess", logger.Name)
+            logger                
                 .Info($"Main Startup run");
 
             CreateHostBuilder(args).Build().Run();
 
-            logger
-                .WithProperty("Prozess", logger.Name)
+            logger                
                 .Info($"Main Startup beendet");
         }
 

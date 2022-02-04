@@ -30,7 +30,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/WeatherForecast", ///swagger
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/HistorianWriter/zigbee.0.00158d00045c0c7c.temperature", ///swagger
       "publishAllPorts": true
     }
   }

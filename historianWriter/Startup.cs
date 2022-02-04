@@ -66,9 +66,13 @@ namespace historianWriter
             });
 
             
-           
-            logger.WithProperty("Prozess",logger.Name).WithProperty("Prozessdauer", metric.stopwatch.ElapsedMilliseconds).Info($"historianWriter gestartet");
-            //logger.WithProperty("LoggingIdxProp", 85).WithProperty("LogginTextProp", "helloProperty").Info($"start parallel mit Ifrit Funktion");
+
+            logger
+                .WithProperty("Prozessdauer", metric.stopwatch.ElapsedMilliseconds)
+                .Info($"historianWriter webservice gestartet");
+
+            HistorianLogic.Instance.Start();
+            
         }
 
         
