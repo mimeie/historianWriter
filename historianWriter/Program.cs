@@ -31,6 +31,9 @@ namespace historianWriter
                 //Layout = "${longdate}|${event-properties:item=EventId_Id}|${threadid}|${uppercase:${level}}|${logger}|${hostname}|${message} ${exception:format=tostring}",
                 Layout = "${message}",
             IncludeAllProperties = true,
+                RequireAuth = true,
+                Username = "elastic",
+                Password = "9FUR8qkJ14p53mbUXL00"
             };
             
             JusiBase.LoggingBase logging = new LoggingBase(elastictarget, NLog.LogLevel.Debug, NLog.LogLevel.Fatal);
