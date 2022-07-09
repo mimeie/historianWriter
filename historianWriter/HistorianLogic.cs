@@ -95,6 +95,14 @@ namespace historianWriter
                 }
 
 
+                //.value von der typisierung entfernen
+                string sourceString = jsonResult.common.role;
+                string removeString = "value.";
+                int index = sourceString.IndexOf(removeString);
+                string cleanString = (index < 0)
+                    ? sourceString
+                    : sourceString.Remove(index, removeString.Length);
+
 
                 //finaler wert in DB schreiben
                 logger
@@ -107,6 +115,8 @@ namespace historianWriter
                .WithProperty("HistorianValueInt", jsonResult.valInt)
                .WithProperty("HistorianValueDouble", jsonResult.valDouble)
                .WithProperty("HistorianValueBool", jsonResult.valBool)
+               .WithProperty("HistorianValueUnit", jsonResult.common.unit)
+               .WithProperty("HistorianValueType", cleanString)
                //.WithProperty("HistorianValueString", jsonResult.valString)
                .WithProperty("HistorianTimestamp", jsonResult.LastChange)
                .WithProperty("HistorianLastChange", jsonResult.TimeStamp)

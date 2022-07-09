@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-
+using historianWriter;
 using NLog;
 using NLog.Targets.ElasticSearch;
 using JusiBase;
@@ -35,7 +35,9 @@ namespace historianWriterTest
            logger.Info($"historianWriter unit test getestet");
         }
 
-        [TestMethod]
+                   
+
+            [TestMethod]
         public void TestValueLogger()
         {
           

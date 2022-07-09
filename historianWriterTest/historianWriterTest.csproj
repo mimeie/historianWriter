@@ -19,4 +19,8 @@
     <PackageReference Include="NLog.Targets.ElasticSearch" Version="7.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\historianWriter\historianWriter.csproj" />
+  </ItemGroup>
+
 </Project>
