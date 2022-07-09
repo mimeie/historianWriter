@@ -54,7 +54,7 @@ namespace historianWriter
             catch (Exception ex)
             {
                 logger
-               .Error($"Fehler bei LichtsteuerungAufruf", ex);
+               .Error(ex, $"Fehler bei Historian Writer Aufruf");
 
 
                 return new ResponseTrigger
